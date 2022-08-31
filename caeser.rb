@@ -14,7 +14,15 @@ letter_shift = []
 
 ord_conv.each do |ord|
     if ord.between?(65,90) || ord.between?(90,122)
-        letter_shift.push(ord+shift)
+        if ord + shift > 90 && ord <= 90
+            large_limit_cross = (ord + shift) - 90
+            letter_shift.push(64 + large_limit_cross)
+          elsif ord + shift > 122 && ord > 97
+            small_limit_cross = (ord + shift) - 122
+            letter_shift.push(96 + small_limit_cross)
+          else
+            letter_shift.push(ord + shift)
+          end
       else
         letter_shift.push(ord)
       end
@@ -33,5 +41,3 @@ p shifted_letters
 shifted_text = shifted_letters.join()
 p shifted_text
 
-
-# now current problems that needs to be tackled are - , starting from intial letters when no more letters ahead(for caps letter and small letters),
